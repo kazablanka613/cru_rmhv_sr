@@ -1,27 +1,10 @@
----
-title: "Repeat mental-health visits to the ED - Systematic Review"
-author: "Nick Barrowman" 
-date: '`r strftime(Sys.time(),format="%d-%b-%Y at %H:%M")`'
-output:
-  word_document:
-      reference_docx: R:/CRU Epibiostat/Rmarkdown knitr/templateLandscapeNarrowTopBottomMarginsSmallTableFont.docx
----
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,comment="",dpi=72*8,fig.width=10,fig.height=6.2)
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE,include=FALSE}
-### Load packages
-library(pander) # Writes to Pandoc, which Rmarkdown uses to make nice output
-library(reshape2)
-library(readxl)
-```
 
-```{r}
-source("R:/CRU Epibiostat/R/drawci.R")
-source("R:/CRU Epibiostat/R/drawintervals.R")
-```
 
 ```{r}
 plotforest <- function(z,extend=0) {
@@ -42,7 +25,7 @@ plotforest <- function(z,extend=0) {
 
 
 ```{r}
-data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",1)
+data <- data1;
 #dim(data)
 data <- data[!is.na(data$OR),] # Remove empty rows
 #head(data)
@@ -58,7 +41,7 @@ plotforest(data)
 ```
 
 ```{r}
-data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",2)
+data <- data2;
 #dim(data)
 data <- data[!is.na(data$OR),] # Remove empty rows
 #head(data)
@@ -73,7 +56,7 @@ plotforest(data)
 ```
 
 ```{r}
-data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",4)
+data <- data4;
 #dim(data)
 data <- data[!is.na(data$OR),] # Remove empty rows
 #head(data)
@@ -90,7 +73,7 @@ plotforest(data)
 ```
 
 ```{r}
-data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",5)
+data <- data5;
 #dim(data)
 data <- data[!is.na(data$OR),] # Remove empty rows
 #head(data)
