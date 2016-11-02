@@ -1,0 +1,106 @@
+---
+title: "Repeat mental-health visits to the ED - Systematic Review"
+author: "Nick Barrowman" 
+date: '`r strftime(Sys.time(),format="%d-%b-%Y at %H:%M")`'
+output:
+  word_document:
+      reference_docx: R:/CRU Epibiostat/Rmarkdown knitr/templateLandscapeNarrowTopBottomMarginsSmallTableFont.docx
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,comment="",dpi=72*8,fig.width=10,fig.height=6.2)
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE,include=FALSE}
+### Load packages
+library(pander) # Writes to Pandoc, which Rmarkdown uses to make nice output
+library(reshape2)
+library(readxl)
+```
+
+```{r}
+source("R:/CRU Epibiostat/R/drawci.R")
+source("R:/CRU Epibiostat/R/drawintervals.R")
+```
+
+```{r}
+plotforest <- function(z,extend=0) {
+  z=data
+  par(las=1,mar=c(5.2,22,0,1))
+  out <- drawintervals(z$"Low CI",z$OR,z$"High CI",log="x",
+                       extend=extend,plot=FALSE)
+  plot(NA,NA,xlim=out$xlim,ylim=out$ylim,axes=FALSE,xlab="",ylab="",log="x")
+  abline(v=1)
+  drawintervals(z$"Low CI",z$OR,z$"High CI",log="x",add=TRUE,extend=extend,
+                xlab="Odds ratio",showbox=FALSE)
+  #axis(2,at=out$pos,labels=paste(z$Study,z$Outcome,z$Variable))
+  mtext(z$Study,side=2,at=out$pos,line=22,cex=0.7,adj=0)
+  mtext(z$Outcome,side=2,at=out$pos,line=17.5,cex=0.6,adj=0)
+  mtext(z$Variable,side=2,at=out$pos,line=12,cex=0.5,adj=0)
+}
+```
+
+
+```{r}
+data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",1)
+#dim(data)
+data <- data[!is.na(data$OR),] # Remove empty rows
+#head(data)
+#The data have `r nrow(data)` rows and `r ncol(data)` columns.
+```
+
+
+######### page break
+
+### Adjusted
+```{r}
+plotforest(data)
+```
+
+```{r}
+data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",2)
+#dim(data)
+data <- data[!is.na(data$OR),] # Remove empty rows
+#head(data)
+#The data have `r nrow(data)` rows and `r ncol(data)` columns.
+```
+
+######### page break
+
+### Unadjusted
+```{r}
+plotforest(data)
+```
+
+```{r}
+data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",4)
+#dim(data)
+data <- data[!is.na(data$OR),] # Remove empty rows
+#head(data)
+#The data have `r nrow(data)` rows and `r ncol(data)` columns.
+
+```
+
+######### page break
+
+### Adjusted RV recency
+
+```{r}
+plotforest(data)
+```
+
+```{r}
+data <- read_excel("R:/CRU Epibiostat/projects/Vid/Repeat mental health visits to the ED - Systematic Review ~ Stephanie Leon/Data/CopyFromMaster_20161021/Forest plot data.xls",5)
+#dim(data)
+data <- data[!is.na(data$OR),] # Remove empty rows
+#head(data)
+#The data have `r nrow(data)` rows and `r ncol(data)` columns.
+```
+
+
+######### page break
+
+### Adjusted RV frequency
+```{r, fig.height=2.5}
+plotforest(data,extend=0.1)
+```
